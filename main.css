@@ -53,3 +53,12 @@ body{
     flex-wrap: wrap;
     margin-top: 300px;
 }
+
+.aboutContent{
+    margin-top: 50px;
+    text-align: center;
+}
+.contactContent{
+    margin-top: 50px;
+    text-align: center;
+}
