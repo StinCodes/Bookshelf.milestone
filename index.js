@@ -7,6 +7,15 @@ function randomColorBG(){
   return bgColor;
 }
 
+// created function that creates querySelectors for each individual book
+let createQS = (bookObj) => {
+  //create variable initialized to an empty string, loop through string to select each book
+  let query = "";
+  for (let i = 0; i < bookData.length; i++){
+    query[i] = document.querySelector(bookObj.title);
+  }
+}
+
 /* Book: tracks all properties in data ✅ */
 class Book {
     constructor(author, language, subject, title){
@@ -14,6 +23,20 @@ class Book {
       this.language = language;
       this.subject = subject;
       this.title = title;
+      this.fav = false;
+    }
+    checkFav(){
+      for(let i = 0; i < bookData.length; i++){
+        if(this.fav){
+          let bookInQuestion
+          // push to favArray
+          // problem: how do we figure out how to select the favorited book???
+        } else{
+          // if book is in favArray...
+            // take out of favArray
+        }
+      }
+      
     }
     Render(){
       // make a rectangle to symbolize a book
@@ -23,23 +46,21 @@ class Book {
       // created text element to center text in book
       let bookTextEle = document.createElement("div"); 
       bookTextEle.classList.add("bookText")
-      rectangle.setAttribute("id", this.title)
       rectangle.append(bookTextEle);
       
       // add color to each book's background
       rectangle.style.backgroundColor = randomColorBG();
 
-      // create button within each book
+      // create favorite button within each book
       let starContainer = document.createElement("button");
       starContainer.classList.add("btn");
       starContainer.classList.add("btn-primary");
       starContainer.setAttribute("type", "button");
       starContainer.innerText = "Favorite!"
-      starContainer.setAttribute("id", "starContainer")
+      starContainer.setAttribute("id", this.title)
       rectangle.append(starContainer)
 
-
-      // added innertext to book face
+      // added innertext to book face by using this keyword
       bookTextEle.innerText = 
       `${this.title}
       by ${this.author} 
@@ -50,6 +71,39 @@ class Book {
       `
       rectangle.inner
       div.append(rectangle);
+      //create comment button, add bootstrap class to change button color to blue
+      const commentButton = document.createElement("button")
+      commentButton.classList.add("btn")
+      commentButton.classList.add("btn-primary")
+      commentButton.setAttribute("type", "button")
+      commentButton.innerText = "Comment"
+      rectangle.append(commentButton)
+      //add event listener to comment button
+      commentButton.addEventListener("click", function(){
+        //each click will create a text box and hide the comment button
+        const commentBox = document.createElement("textarea")
+        commentBox.setAttribute("maxlength", "280")
+        commentButton.style.visibility = "hidden"
+        rectangle.append(commentBox)
+        //each click will create a send button (to send comment)
+        const sendCommentButton = document.createElement("button")
+        sendCommentButton.classList.add("btn")
+        sendCommentButton.classList.add("btn-primary")
+        sendCommentButton.setAttribute("type", "button")
+        sendCommentButton.innerText = "Send"
+        rectangle.append(sendCommentButton)
+        //write another event listener for when send comment button is clicked
+        sendCommentButton.addEventListener("click", function(){
+          //each click of send comment button will create a div tag that contains the comment
+          const postedComment = document.createElement("div")
+          postedComment.classList.add("postedComment")
+          postedComment.innerText = commentBox.value
+          //each click will hide comment text box and the send comment button
+          commentBox.style.visibility = "hidden"
+          sendCommentButton.style.visibility = "hidden"
+          rectangle.append(postedComment)
+        })
+      })
     }
 }
 /*bookshelf should: 1. maintain array of shelf 2. add books to bookshelf ✅*/
@@ -99,28 +153,42 @@ document.querySelector("#submit").addEventListener("click", function (){
   let newAuthor = document.querySelector('#Author').value;
   let newLang = document.querySelector('#Language').value;
   let newSubj = document.querySelector('#Subject').value;
-  let newBook = new Book (newAuthor, newLang,newSubj, newTitle);
+  let newBook = new Book (newAuthor, newLang, newSubj, newTitle);
   eternalBookshelf.Add(newBook);
   newBook.Render();
   document.querySelector("#newBookForm").reset();
 })
 
-/*
-1. create array that holds all favorites ✅
-2. create DOM element that symbolizes favorited books... ✅
-3. figure out how to add star to element ✅
-    - CSS way?
-4. add eventlistener to the button✅
-    - when clicked, add to favoritesArr (use push)
-*/
 
-//create array that holds all favorites
-const favoriteArr = [];
+class FavoritesArr{
+  constructor(){
+    this.favArr = []
+  }
+  add(bookObj){
+    console.log(bookObj)
+    this.favArr.push(bookObj)
+  }
+}
+// creates an array of favorites
+let favorites = new FavoritesArr();
 
-// when favorite is clicked... 
-let starContainer = document.querySelector("#starContainer")
-starContainer.addEventListener("click", function(){
-  favoriteArr.push()
+// when favorites is clicked... 
+let starContainer = document.querySelector(".starContainer")
+let starredBook = document.querySelector('#The Beasts of Tarzan')
+starContainer.addEventListener("click", function(event){
+  
+  // add book that's favorited to favorites array
+  // console.log(event, event.target)
+  favorites.add();
+  // console.log(favorites)
 })
+
+let book1 = new Book ()
+book1.checkFav();
+// create a status within each book that starts as false
+
+// if starContainer is clicked, status = true
+
+
 
 

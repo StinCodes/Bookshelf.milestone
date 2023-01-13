@@ -12,7 +12,23 @@ body{
     justify-content: center;
     flex-wrap: wrap;
 }
-
+.pageTop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    height: 45px;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}
+#newBookSection{
+    margin-top: 45px;
+}
 .bookCard{
     /* A bookCard represents each book */
     margin: auto;
